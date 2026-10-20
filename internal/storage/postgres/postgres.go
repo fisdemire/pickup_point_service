@@ -12,7 +12,7 @@ import (
 	_ "github.com/jackc/pgx/v5/stdlib"
 	"github.com/pressly/goose/v3"
 
-	"pickup_point_service/migrations"
+	"github.com/fisdemire/pickup_point_service/migrations"
 )
 
 type Store struct{ pool *pgxpool.Pool }
