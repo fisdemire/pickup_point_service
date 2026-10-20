@@ -1,0 +1,16 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment: { POSTGRES_USER: pvz, POSTGRES_PASSWORD: pvz, POSTGRES_DB: pvz }
+    ports: ["5432:5432"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pvz"]
+      interval: 2s
+      retries: 20
+  app:
+    build: .
+    depends_on: { db: { condition: service_healthy } }
+    environment:
+      DATABASE_URL: postgres://pvz:pvz@db:5432/pvz?sslmode=disable
+      JWT_SECRET: dev-secret-change-me
+    ports: ["8080:8080", "3000:3000", "9000:9000"]
